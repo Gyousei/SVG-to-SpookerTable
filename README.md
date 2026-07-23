@@ -33,4 +33,4 @@ Try and find the lowest value that conserves the general shape of your table
 
 ## GUI
 
-Pretty self explanatory. Load an image at the top left, enter a desired vertex resolution, then hit convert. The online generator can be opened for conversion to a JSON format so the devs can utilize the table. Copy to clipboard copies the full output vertex list for pasting into the online too.
+Pretty self explanatory. Load an image at the top left, enter a desired vertex resolution, then hit convert. The online generator can be opened for conversion to a JSON format so the devs can utilize the table. Copy to clipboard copies the full output vertex list for pasting into the online tool.
