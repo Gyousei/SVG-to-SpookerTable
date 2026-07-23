@@ -1,3 +1,7 @@
+## Update version 0.0.2
+
+Support added for most image formats including png, jpg, tiff, and bmp. Uses a combination of color conversion, gaussian blur, and shape tracing to attempt to replicate the shape. For best results, use images with solid colors without gradients.
+
 # svg-to-spooker
 
 A tool built in python to take an SVG that fits the following condition and converts it into a spooker table
@@ -19,6 +23,7 @@ e.g.
 I tried to match the vertex count to the way the table generator likes, but I was guessing a little bit at how they implemented it, idk if it'll be perfect.
 
 Any vertex order issues can be fixed within the table generator itself by just clicking "Auto-Fix Point Order" near the top of the generator, next to the validation button.
+
 ## What is "resolution"?
 
 Resolution (default 50) just specifies how many vertices you want the output table to have. 
@@ -28,4 +33,4 @@ Try and find the lowest value that conserves the general shape of your table
 
 ## GUI
 
-Pretty self explanatory. Load an SVG at the top left, enter a desired vertex resolution, then hit convert.
+Pretty self explanatory. Load an image at the top left, enter a desired vertex resolution, then hit convert. The online generator can be opened for conversion to a JSON format so the devs can utilize the table. Copy to clipboard copies the full output vertex list for pasting into the online too.
