@@ -1,3 +1,5 @@
+<img width="1098" height="749" alt="image" src="https://github.com/user-attachments/assets/0e83bdef-5b92-4b06-8462-4876740cf3e2" />
+
 ## Update version 0.0.2
 
 Support added for most image formats including png, jpg, tiff, and bmp. Uses a combination of color conversion, gaussian blur, and shape tracing to attempt to replicate the shape. For best results, use images with solid colors without gradients.
