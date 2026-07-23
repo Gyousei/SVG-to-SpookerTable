@@ -435,15 +435,12 @@ def convert_image_to_polygon(image_path, target_vertices):
     if not scale or scale <= 0:
         raise ValueError("Path has zero or degenerate bounding box.")
 
-    segment_count = max(1, sum(1 for _ in main))
-    step_svg = arc_length_svg / max(1.0, target_vertices - segment_count)
+    step_svg = arc_length_svg / target_vertices
 
     raw_points = sample_subpath(main, step_svg)
     normalized = normalize_to_box(raw_points, half_size=HALF_BOX)
-    cleaned = dedupe_all(normalized, eps=EPS)
-    # Simplify collinear BEFORE angle-sorting, so consecutive points
-    # are still edge-adjacent along the SVG path (angle sorting breaks
-    # adjacency for non-convex shapes).
+    resampled = _uniform_resample(normalized, target_vertices)
+    cleaned = dedupe_all(resampled, eps=EPS)
     simplified = simplify_collinear(cleaned)
     ordered = order_counterclockwise_from_topleft(simplified)
 
@@ -454,9 +451,35 @@ def convert_image_to_polygon(image_path, target_vertices):
         "step_svg": step_svg,
         "target_vertices": target_vertices,
         "arc_length_svg": arc_length_svg,
-        "segment_count": segment_count,
     }
     return ordered, metadata
+
+
+def _uniform_resample(points, n):
+    if len(points) < 3 or n >= len(points):
+        return points[:]
+
+    pts = np.array(points, dtype=float)
+    diffs = np.diff(pts, axis=0)
+    seg_lengths = np.sqrt(np.sum(diffs ** 2, axis=1))
+    cum_lengths = np.concatenate([[0.0], np.cumsum(seg_lengths)])
+    total_length = cum_lengths[-1]
+
+    sample_lengths = np.linspace(0, total_length, n, endpoint=False)
+
+    result = []
+    idx = 0
+    for sl in sample_lengths:
+        while idx < len(cum_lengths) - 1 and cum_lengths[idx + 1] < sl:
+            idx += 1
+        seg_start = cum_lengths[idx]
+        seg_end = cum_lengths[idx + 1]
+        t = (sl - seg_start) / (seg_end - seg_start) if seg_end > seg_start else 0.0
+        x = pts[idx, 0] + t * (pts[idx + 1, 0] - pts[idx, 0])
+        y = pts[idx, 1] + t * (pts[idx + 1, 1] - pts[idx, 1])
+        result.append((float(x), float(y)))
+
+    return result
 
 
 def format_polygon_output(polygon, decimals=4):

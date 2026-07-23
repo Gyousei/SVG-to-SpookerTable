@@ -1,2 +1,15 @@
 cha-bubbles-two-svgrepo-com.svg
 test.png
+blob.png
+chat_bubbles.svg
+build/svg_to_spooker/base_library.zip
+*.toc
+*.pyc
+*.pyz
+*.html
+build/svg_to_spooker/warn-svg_to_spooker.txt
+build/svg_to_spooker/svg_to_spooker.pkg
+*.exe
+*.exe
+dist/svg_to_spooker.exe
+dist/svg_to_spooker.exe
