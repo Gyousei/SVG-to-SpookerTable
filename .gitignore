@@ -7,9 +7,8 @@ build/svg_to_spooker/base_library.zip
 *.pyc
 *.pyz
 *.html
+*.exe
 build/svg_to_spooker/warn-svg_to_spooker.txt
 build/svg_to_spooker/svg_to_spooker.pkg
-*.exe
-*.exe
 dist/svg_to_spooker.exe
 dist/svg_to_spooker.exe
